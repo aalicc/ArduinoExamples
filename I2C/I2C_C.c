@@ -34,7 +34,7 @@ int main()
     I2C_start();
     I2C_send(SLA_W);
     I2C_send(0x00);                                  		//sends start bit (depends on device)
-    I2C_send(100);                                   		//sends variable named some_data_to_i2c_device
+    I2C_send(100);                                   		//sends user-specified data, integer '100' in this case
     _delay_ms(100);
   }
 I2C_stop();
