@@ -5,14 +5,14 @@
 #define SLA_W (0x3F << 1)		                          //I2C device address & write bit (shifted left => 0x7E)
 
 void I2C_setup(){
-	TWSR = 0x00;											                  // 
-	TWBR = 0x48;											                  // bit rate = 100kHz for 16MHz clock
-	TWCR = (1 << TWEN);										              // enable TWI
+	TWSR = 0x00;						  // 
+	TWBR = 0x48;						  // bit rate = 100kHz for 16MHz clock
+	TWCR = (1 << TWEN);					  // enable TWI
 }
 
 void I2C_start(){
-	TWCR = (1 << TWSTA) | (1 << TWEN) | (1 << TWINT);		// Send START
-	while (!(TWCR & (1 << TWINT)));							        // Wait for TWINT flag
+	TWCR = (1 << TWSTA) | (1 << TWEN) | (1 << TWINT);	  // 
+	while (!(TWCR & (1 << TWINT)));				  // wait for TWINT flag
 }
 
 void I2C_stop(){
@@ -22,8 +22,8 @@ void I2C_stop(){
 
 void I2C_send(uint8_t some_data_to_i2c_device){
 	TWDR = some_data_to_i2c_device;
-	TWCR = (1 << TWEN) | (1 << TWINT);						     // Start transmission
-	while (!(TWCR & (1 << TWINT)));							       // Wait for TWINT flag
+	TWCR = (1 << TWEN) | (1 << TWINT);			  // start transmission
+	while (!(TWCR & (1 << TWINT)));				  // wait for TWINT flag
 }
 
 int main()
@@ -33,8 +33,8 @@ int main()
   while (1){
     I2C_start();
     I2C_send(SLA_W);
-    I2C_send(0x00);                                  //sends start bit (depends on device)
-    I2C_send(100);                                   //sends variable named some_data_to_i2c_device
+    I2C_send(0x00);                                  		//sends start bit (depends on device)
+    I2C_send(100);                                   		//sends variable named some_data_to_i2c_device
     _delay_ms(100);
   }
 I2C_stop();
